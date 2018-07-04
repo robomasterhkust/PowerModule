@@ -10,7 +10,7 @@
 .*.un~
 .*.swp
 *.gch
-*.pdf
+
 
 # Object files
 *.o
