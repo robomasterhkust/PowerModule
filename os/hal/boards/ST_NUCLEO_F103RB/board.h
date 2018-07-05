@@ -18,14 +18,10 @@
 #define _BOARD_H_
 
 /*
- * Setup for the ST INEMO-M1 Discovery board.
- */
-
-/*
  * Board identifier.
  */
 #define BOARD_ST_NUCLEO_F103RB
-#define BOARD_NAME              "STMicroelectronics NUCLEO-F103RB"
+#define BOARD_NAME              "Power Module Control Board V1"
 
 #define NUCLEO_HSE_CRYSTAL
 
@@ -51,12 +47,35 @@
 #define STM32F103xB
 
 /*
+ * Pin Alternative names
+ */
+
+#define GPIO_VOUT               GPIOA_PA0
+#define GPIO_VCAP               GPIOA_PA1
+#define GPIO_VIN                GPIOA_PA4
+
+#define GPIO_SCLK               GPIOA_PA5
+#define GPIO_MISO               GPIOA_PA6
+#define GPIO_ACS                GPIOA_PA7
+#define GPIO_BCS                GPIOB_PB0
+
+#define GPIO_SCL                GPIOB_PB6
+#define GPIO_SDA                GPIOB_PB7
+
+#define GPIO_DIODE              GPIOB_PB12
+#define GPIO_IN2                GPIOB_PB13
+#define GPIO_IN1                GPIOB_PB14
+
+#define GPIO_SWDIO              GPIOA_PA13
+#define GPIO_SWCLK              GPIOA_PA14
+
+/*
  * IO pins assignments.
  */
 #define GPIOA_PA0               0
 #define GPIOA_PA1               1
-#define GPIOA_USART_TX          2
-#define GPIOA_USART_RX          3
+#define GPIOA_PA2               2
+#define GPIOA_PA3               3
 #define GPIOA_PA4               4
 #define GPIOA_PA5               5
 #define GPIOA_PA6               6
@@ -66,8 +85,8 @@
 #define GPIOA_PA10              10
 #define GPIOA_PA11              11
 #define GPIOA_PA12              12
-#define GPIOA_SWDIO             13
-#define GPIOA_SWCLK             14
+#define GPIOA_PA13              13
+#define GPIOA_PA14              14
 #define GPIOA_PA15              15
 
 #define GPIOB_PB0               0
@@ -100,7 +119,7 @@
 #define GPIOC_PC10              10
 #define GPIOC_PC11              11
 #define GPIOC_PC12              12
-#define GPIOC_LED               13
+#define GPIOC_PC13              13
 #define GPIOC_PC14              14
 #define GPIOC_PC15              15
 
@@ -134,52 +153,38 @@
 
 /*
  * Port A setup.
- * Everything input with pull-up except:
- * PA2  - Alternate output          (GPIOA_USART_TX).
- * PA3  - Normal input              (GPIOA_USART_RX).
- * PA5  - Push Pull output          (GPIOA_LED_GREEN).
- * PA13 - Pull-up input             (GPIOA_SWDIO).
- * PA14 - Pull-down input           (GPIOA_SWCLK).
  */
-#define VAL_GPIOACRL            0xBB334B33      /*  PA7...PA0 */
-#define VAL_GPIOACRH            0x3883B4BB      /* PA15...PA8 */
-#define VAL_GPIOAODR            0xFFFFBFDF
+#define VAL_GPIOACRL            0xB4B08800      /*  PA7...PA0 */
+#define VAL_GPIOACRH            0x388B4888      /* PA15...PA8 */
+#define VAL_GPIOAODR            0x0000A000
 
 /*
  * Port B setup.
- * Everything input with pull-up except:
- * PB3  - Pull-up input             (GPIOA_SWO).
  */
-#define VAL_GPIOBCRL            0x4B3338BB      /*  PB7...PB0 */
-#define VAL_GPIOBCRH            0x33334B33      /* PB15...PB8 */
-#define VAL_GPIOBODR            0xFFFFFFFF
+#define VAL_GPIOBCRL            0xFF88888B      /*  PB7...PB0 */
+#define VAL_GPIOBCRH            0x81118888      /* PB15...PB8 */
+#define VAL_GPIOBODR            0x00000000
 
 /*
  * Port C setup.
- * Everything input with pull-up except:
- * PC13 - Normal input              (GPIOC_BUTTON).
  */
 #define VAL_GPIOCCRL            0x88888888      /*  PC7...PC0 */
-#define VAL_GPIOCCRH            0x88388888      /* PC15...PC8 */
-#define VAL_GPIOCODR            0xFFFFFFFF
+#define VAL_GPIOCCRH            0x88888888      /* PC15...PC8 */
+#define VAL_GPIOCODR            0x00000000
 
 /*
  * Port D setup.
- * Everything input with pull-up except:
- * PD0  - Normal input              (GPIOD_OSC_IN).
- * PD1  - Normal input              (GPIOD_OSC_OUT).
  */
 #define VAL_GPIODCRL            0x88888844      /*  PD7...PD0 */
 #define VAL_GPIODCRH            0x88888888      /* PD15...PD8 */
-#define VAL_GPIODODR            0xFFFFFFFF
+#define VAL_GPIODODR            0x00000000
 
 /*
  * Port E setup.
- * Everything input with pull-up except:
  */
 #define VAL_GPIOECRL            0x88888888      /*  PE7...PE0 */
 #define VAL_GPIOECRH            0x88888888      /* PE15...PE8 */
-#define VAL_GPIOEODR            0xFFFFFFFF
+#define VAL_GPIOEODR            0x00000000
 
 /*
  * USB bus activation macro, required by the USB driver.

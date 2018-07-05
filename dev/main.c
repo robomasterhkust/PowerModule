@@ -18,11 +18,26 @@
 #include "hal.h"
 #include "TLI4970.h"
 
-int main(void) {
+static THD_WORKING_AREA(waThread1, 128);
+static THD_FUNCTION(Thread1, arg) {
 
+  palSetPadMode(GPIOB, 3, PAL_MODE_OUTPUT_PUSHPULL);
+  (void)arg;
+  chRegSetThreadName("blinker");
+  while (true) {
+    palSetPad(GPIOB, 3);
+    chThdSleepMilliseconds(2000);
+    palClearPad(GPIOB, 3);
+    chThdSleepMilliseconds(2000);
+  }
+}
+
+int main(void) {
 
   halInit();
   chSysInit();
+
+  chThdCreateStatic(waThread1, sizeof(waThread1), NORMALPRIO, Thread1, NULL);
 
   while (true) {
 
