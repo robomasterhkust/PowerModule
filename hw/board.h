@@ -161,7 +161,7 @@
 /*
  * Port B setup.
  */
-#define VAL_GPIOBCRL            0xFF88888B      /*  PB7...PB0 */
+#define VAL_GPIOBCRL            0xFF88388B      /*  PB7...PB0 */
 #define VAL_GPIOBCRH            0x81118888      /* PB15...PB8 */
 #define VAL_GPIOBODR            0x00000000
 

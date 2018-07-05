@@ -35,4 +35,10 @@
 			<locationURI>CHIBIOS/os</locationURI>
 		</link>
 	</linkedResources>
+	<variableList>
+		<variable>
+			<name>CHIBIOS</name>
+			<value>file:/C:/ChibiStudio/workspace_user/PowerModule</value>
+		</variable>
+	</variableList>
 </projectDescription>

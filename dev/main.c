@@ -21,13 +21,13 @@
 static THD_WORKING_AREA(waThread1, 128);
 static THD_FUNCTION(Thread1, arg) {
 
-  palSetPadMode(GPIOB, 3, PAL_MODE_OUTPUT_PUSHPULL);
+  palSetPadMode(GPIOB, 8, PAL_MODE_OUTPUT_PUSHPULL);
   (void)arg;
   chRegSetThreadName("blinker");
   while (true) {
-    palSetPad(GPIOB, 3);
+    palSetPad(GPIOB, 8);
     chThdSleepMilliseconds(2000);
-    palClearPad(GPIOB, 3);
+    palClearPad(GPIOB, 8);
     chThdSleepMilliseconds(2000);
   }
 }
