@@ -16,6 +16,7 @@
 
 #include "ch.h"
 #include "hal.h"
+#include "TLI4970.h"
 
 int main(void) {
 

@@ -11,7 +11,6 @@
 #include "ch.h"
 #include "hal.h"
 
-#include "MotorPWM.h"
-#include "Bluetooth.h"
+#include "TLI4970.h"
 
 #endif /* INC_MAIN_H_ */

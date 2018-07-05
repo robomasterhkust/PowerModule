@@ -83,10 +83,11 @@ endif
 #
 
 # Define project name here
-PROJECT = ch
+PROJECT = powerModule
 
 # Imported source files and paths
 CHIBIOS = ..
+DEV = $(CHIBIOS)/dev
 # Startup files.
 include $(CHIBIOS)/os/common/ports/ARMCMx/compilers/GCC/mk/startup_stm32f1xx.mk
 # HAL-OSAL files (optional).
@@ -97,8 +98,12 @@ include $(CHIBIOS)/os/hal/osal/rt/osal.mk
 # RTOS files (optional).
 include $(CHIBIOS)/os/rt/rt.mk
 include $(CHIBIOS)/os/rt/ports/ARMCMx/compilers/GCC/mk/port_v7m.mk
-# Other files (optional).
-#include $(CHIBIOS)/test/rt/test.mk
+# Application files (optional).
+include $(DEV)/0_driver/driver.mk
+include $(DEV)/1_function/function.mk
+include $(DEV)/2_routine/routine.mk
+include $(DEV)/3_application/application.mk
+#include $(DEV)/4_libraries/libraries.mk
 
 # Define linker script file here
 LDSCRIPT= $(STARTUPLD)/STM32F103xB.ld
@@ -113,6 +118,10 @@ CSRC = $(STARTUPSRC) \
        $(PLATFORMSRC) \
        $(BOARDSRC) \
        $(TESTSRC) \
+       $(DRIVERSRC) \
+       $(FUNCSRC) \
+       $(ROUTINESRC) \
+       $(APPSRC) \
        main.c 
 
 # C++ sources that can be compiled in ARM or THUMB mode depending on the global
@@ -146,7 +155,11 @@ INCDIR = $(STARTUPINC) $(KERNINC) $(PORTINC) $(OSALINC) \
          $(HALINC) $(PLATFORMINC) $(BOARDINC) $(TESTINC) \
          $(CHIBIOS)/os/various \
          $(CHIBIOS)/dev/inc \
-         $(CHIBIOS)/os/ext/CMSIS/include
+         $(CHIBIOS)/os/ext/CMSIS/include \
+         $(DRIVERINC) \
+         $(FUNCINC) \
+         $(ROUTINEINC) \
+         $(APPINC) 
 
 #
 # Project, sources and paths

@@ -18,10 +18,6 @@
 #define _BOARD_H_
 
 /*
- * Setup for the ST INEMO-M1 Discovery board.
- */
-
-/*
  * Board identifier.
  */
 #define BOARD_ST_NUCLEO_F103RB
