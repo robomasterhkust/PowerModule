@@ -11,10 +11,14 @@
 
 void currentSensorInit(currentSensor* sensor, const ioportid_t port, const uint16_t pad) {
 
+<<<<<<< HEAD
 	sensor->port = port;
   sensor->pad = pad;
   palSetPadMode(sensor->port, sensor->pad, PAL_MODE_OUTPUT_PUSHPULL);
   palSetPad(sensor->port, sensor->pad);
+=======
+  sensor->driver = &SPID1;
+>>>>>>> 3b7709b0e5440c6eda3fca6e3100dba33908f684
 
   if (sensor->driver->state == SPI_UNINIT) {
     SPIConfig tli4970SpiCfg = {
@@ -25,6 +29,7 @@ void currentSensorInit(currentSensor* sensor, const ioportid_t port, const uint1
       SPI_CR1_BIDIMODE | SPI_CR1_RXONLY
     };
     sensor->driver->rxdmamode |= STM32_DMA_CR_PSIZE_HWORD | STM32_DMA_CR_MSIZE_HWORD;
+    sensor->driver->txdmamode |= STM32_DMA_CR_PSIZE_HWORD | STM32_DMA_CR_MSIZE_HWORD;
     spiStart(sensor->driver, &tli4970SpiCfg);
   }
 
