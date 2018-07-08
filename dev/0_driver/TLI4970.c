@@ -11,27 +11,25 @@
 
 void currentSensorInit(currentSensor* sensor, const ioportid_t port, const uint16_t pad) {
 
-<<<<<<< HEAD
-	sensor->port = port;
-  sensor->pad = pad;
-  palSetPadMode(sensor->port, sensor->pad, PAL_MODE_OUTPUT_PUSHPULL);
-  palSetPad(sensor->port, sensor->pad);
-=======
   sensor->driver = &SPID1;
->>>>>>> 3b7709b0e5440c6eda3fca6e3100dba33908f684
 
-  if (sensor->driver->state == SPI_UNINIT) {
+  if (sensor->driver->state == SPI_STOP) {
     SPIConfig tli4970SpiCfg = {
       NULL,
       port,
       pad,
       SPI_CR1_MSTR | SPI_CR1_DFF | SPI_CR1_BR_1 | SPI_CR1_BR_0 |
-      SPI_CR1_BIDIMODE | SPI_CR1_RXONLY
+      SPI_CR1_BIDIMODE | SPI_CR1_RXONLY | SPI_CR1_CPHA
     };
     sensor->driver->rxdmamode |= STM32_DMA_CR_PSIZE_HWORD | STM32_DMA_CR_MSIZE_HWORD;
-    sensor->driver->txdmamode |= STM32_DMA_CR_PSIZE_HWORD | STM32_DMA_CR_MSIZE_HWORD;
+    //sensor->driver->txdmamode |= STM32_DMA_CR_PSIZE_HWORD | STM32_DMA_CR_MSIZE_HWORD;
     spiStart(sensor->driver, &tli4970SpiCfg);
   }
+
+  sensor->port = port;
+  sensor->pad = pad;
+  palSetPadMode(sensor->port, sensor->pad, PAL_MODE_OUTPUT_PUSHPULL);
+  palSetPad(sensor->port, sensor->pad);
 
 }
 
@@ -48,7 +46,7 @@ void currentSensorUpdate(currentSensor* sensor){
   palClearPad(sensor->port, sensor->pad);
   osalSysUnlock();
 
-  spiReceive(sensor->driver, 1, &data);
+  spiStartReceive(sensor->driver, 1, &data);
 
   //slave unselect
   osalDbgCheck(sensor->driver != NULL);

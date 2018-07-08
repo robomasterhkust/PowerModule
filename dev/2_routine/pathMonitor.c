@@ -12,14 +12,14 @@
 
 static pathStatus currentPath;
 
-static THD_WORKING_AREA(pathMonitorThd_wa, 512);
+static THD_WORKING_AREA(pathMonitorThd_wa, 1024);
 static THD_FUNCTION(pathMonitorThd, p) {
 
   (void)p;
 
-  while(!chThdShouldTerminateX()) {
+  while(true) {
 
-    currentSensorUpdate(&(currentPath.pathA));
+    //currentSensorUpdate(&(currentPath.pathA));
     currentSensorUpdate(&(currentPath.pathB));
     chThdSleep(MS2ST(1));
 
@@ -31,7 +31,7 @@ void pathMonitorInit(void) {
 
   //memset((void*)&currentPath, 0, sizeof(pathStatus));
 
-  currentSensorInit(&(currentPath.pathA), GPIOA, 7);
+  //currentSensorInit(&(currentPath.pathA), GPIOA, 7);
   currentSensorInit(&(currentPath.pathB), GPIOB, 0);
 
   chThdCreateStatic(pathMonitorThd_wa, sizeof(pathMonitorThd_wa),
