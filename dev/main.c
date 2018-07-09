@@ -8,6 +8,7 @@
 #include "ch.h"
 #include "hal.h"
 #include "TLI4970.h"
+#include "pathMonitor.h"
 #include "LED.h"
 
 int main(void) {

@@ -19,9 +19,10 @@ static THD_FUNCTION(pathMonitorThd, p) {
 
   while(true) {
 
-    //currentSensorUpdate(&(currentPath.pathA));
+    currentSensorUpdate(&(currentPath.pathA));
+    chThdSleep(US2ST(1000));
     currentSensorUpdate(&(currentPath.pathB));
-    chThdSleep(MS2ST(1));
+    chThdSleep(US2ST(1000));
 
   }
 
