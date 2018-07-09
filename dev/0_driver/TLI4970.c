@@ -51,9 +51,9 @@ static const uint16_t CR1_cfg =
 static const uint16_t CR2_cfg =
     SPI_CR2_RXNEIE | SPI_CR2_SSOE;
 
-OSAL_IRQ_HANDLER(VectorCC) {
+CH_IRQ_HANDLER(VectorCC) {
 
-  OSAL_IRQ_PROLOGUE();
+  CH_IRQ_PROLOGUE();
   chSysLockFromISR();
 
   activeSensor->driver->spi->CR1 &= ~(SPI_CR1_SSI | SPI_CR1_SPE);
@@ -62,7 +62,7 @@ OSAL_IRQ_HANDLER(VectorCC) {
   activeSensor->dataReady = 1;
 
   chSysUnlockFromISR();
-  OSAL_IRQ_EPILOGUE();
+  CH_IRQ_EPILOGUE();
 
 }
 
@@ -85,6 +85,9 @@ void currentSensorInit(currentSensor* sensor, const ioportid_t port, const uint1
   sensor->pad = pad;
   palSetPadMode(sensor->port, sensor->pad, PAL_MODE_OUTPUT_PUSHPULL);
   palSetPad(sensor->port, sensor->pad);
+
+  rccEnableSPI1(FALSE);
+  nvicEnableVector(35, STM32_SPI_SPI1_IRQ_PRIORITY);
 
   sensor->driver->spi->CR1 = 0;
   sensor->driver->spi->CR1 = CR1_cfg;
