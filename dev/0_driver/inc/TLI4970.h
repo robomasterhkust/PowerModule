@@ -11,10 +11,22 @@ typedef struct currentSensor{
   ioportid_t port;
   uint16_t pad;
   uint16_t error;
-  uint16_t raw_current;
+  uint8_t dataReady;
+  uint16_t rawData;
+  uint16_t rawCurrent;
   int32_t current;      //mA
 
 } currentSensor;
+
+typedef struct spiDriver_t{
+
+  SPIDriver* driver;
+  ioportid_t port;
+  uint16_t pad;
+  uint16_t data;
+  uint8_t flag;
+
+} spiDriver_t;
 
 void currentSensorInit(currentSensor* sensor, ioportid_t port, uint16_t pad);
 void currentSensorUpdate(currentSensor* sensor);

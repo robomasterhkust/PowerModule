@@ -74,7 +74,7 @@
   * @}
   */
 
-/** @addtogroup Peripheral_interrupt_number_definition
+/** @addtogroup Peripheral_interrupt_numbe35r_definition
   * @{
   */
 
