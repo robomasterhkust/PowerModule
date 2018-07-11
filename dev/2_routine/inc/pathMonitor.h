@@ -10,6 +10,22 @@
 
 #include "TLI4970.h"
 
+static const SPIConfig aSpiCfg = {
+    NULL,
+    GPIOB,
+    1,
+    SPI_CR1_MSTR | SPI_CR1_DFF | SPI_CR1_BR_1 | SPI_CR1_BR_0 |
+    SPI_CR1_CPHA | SPI_CR1_SSM
+};
+
+static const SPIConfig bSpiCfg = {
+    NULL,
+    GPIOB,
+    0,
+    SPI_CR1_MSTR | SPI_CR1_DFF | SPI_CR1_BR_1 | SPI_CR1_BR_0 |
+    SPI_CR1_CPHA | SPI_CR1_SSM
+};
+
 typedef struct pathStatus{
 
   currentSensor pathA;

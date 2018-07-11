@@ -19,10 +19,9 @@ static THD_FUNCTION(pathMonitorThd, p) {
 
   while(true) {
 
-    currentSensorUpdate(&(currentPath.pathA));
-    chThdSleep(US2ST(1000));
-    currentSensorUpdate(&(currentPath.pathB));
-    chThdSleep(US2ST(1000));
+    currentSensorUpdate(&(currentPath.pathA), &aSpiCfg);
+    currentSensorUpdate(&(currentPath.pathB), &bSpiCfg);
+    chThdSleep(US2ST(100));
 
   }
 
@@ -30,10 +29,8 @@ static THD_FUNCTION(pathMonitorThd, p) {
 
 void pathMonitorInit(void) {
 
-  //memset((void*)&currentPath, 0, sizeof(pathStatus));
-
-  //currentSensorInit(&(currentPath.pathA), GPIOA, 7);
-  currentSensorInit(&(currentPath.pathB), GPIOB, 0);
+  currentSensorInit(&(currentPath.pathA), &aSpiCfg);
+  currentSensorInit(&(currentPath.pathB), &bSpiCfg);
 
   chThdCreateStatic(pathMonitorThd_wa, sizeof(pathMonitorThd_wa),
                     NORMALPRIO + 10, pathMonitorThd, NULL);

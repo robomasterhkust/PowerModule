@@ -3,7 +3,7 @@
 
 #define TLI4970_NORMAL_ID       (uint16_t)0
 #define TLI4970_D025_OFFSET     4096
-#define TLI4970_D025_LSB2MA     6.25f
+#define TLI4970_D025_LSB2MA     12.5f
 
 typedef struct currentSensor{
 
@@ -28,7 +28,7 @@ typedef struct spiDriver_t{
 
 } spiDriver_t;
 
-void currentSensorInit(currentSensor* sensor, ioportid_t port, uint16_t pad);
-void currentSensorUpdate(currentSensor* sensor);
+void currentSensorInit(currentSensor* sensor, const SPIConfig* cfg);
+void currentSensorUpdate(currentSensor* sensor, const SPIConfig* cfg);
 
 #endif
