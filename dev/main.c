@@ -9,6 +9,8 @@
 #include "hal.h"
 #include "TLI4970.h"
 #include "pathMonitor.h"
+#include "buckProg.h"
+#include "MCP4726.h"
 #include "LED.h"
 
 int main(void) {
@@ -22,6 +24,7 @@ int main(void) {
 
   //Routine init
   pathMonitorInit();
+  buckInit();
 
   while (true) {
 
