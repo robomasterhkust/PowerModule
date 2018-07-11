@@ -19,11 +19,9 @@ static THD_FUNCTION(buckProgThd, p) {
 
   while(true) {
 
-    for (uint16_t i = 0; i < 40; i++) {
-      chThdSleep(US2ST(500));
-      dac.dacVal = i * 100;
-      dacUpdate(&dac);
-    }
+    dac.dacVal = (uint16_t) dac.mV * MV2DAC;
+    dacUpdate(&dac);
+    chThdSleep(US2ST(100));
 
   }
 

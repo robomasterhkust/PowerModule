@@ -12,11 +12,11 @@ void OnProjectLoad (void) {
   //
   // Dialog-generated settings
   //
-  Project.SetDevice ("STM32F103C6");
+  Project.SetDevice ("STM32F103C8");
   Project.SetHostIF ("USB", "");
   Project.SetTargetIF ("SWD");
   Project.SetTIFSpeed ("50 MHz");
-  Project.AddSvdFile ("Cortex-M4F.svd");
+  Project.AddSvdFile ("$(InstallDir)/Config/CPU/Cortex-M3.svd");
   Project.AddSvdFile ("$(InstallDir)/Config/Peripherals/ARMv7M.svd");
   //
   // User settings
@@ -76,12 +76,29 @@ void OnProjectLoad (void) {
 *       AfterTargetReset                                              
 *                                                                     
 * Function description                                                
-*   Event handler routine. Optional.                                  
+*   Event handler routine.                                            
+*    - Sets the PC register to program reset value.                   
+*    - Sets the SP register to program reset value on Cortex-M.       
 *                                                                     
 **********************************************************************
 */                                                                    
-//void AfterTargetReset (void) {                                      
-//}                                                                   
+void AfterTargetReset (void) {
+  unsigned int SP;                                                
+  unsigned int PC;                                                
+  unsigned int VectorTableAddr;                                   
+                                                                  
+  VectorTableAddr = Elf.GetBaseAddr();                            
+                                                                  
+  if (VectorTableAddr == 0xFFFFFFFF) {                            
+    Util.Log("Project file error: failed to get program base"); 
+  } else {                                                        
+    SP = Target.ReadU32(VectorTableAddr);                         
+    Target.SetReg("SP", SP);                                    
+                                                                  
+    PC = Target.ReadU32(VectorTableAddr + 4);                     
+    Target.SetReg("PC", PC);                                    
+  }
+}
 
 /*********************************************************************
 *                                                                     
@@ -161,33 +178,28 @@ void OnProjectLoad (void) {
 *                                                                     
 * Function description                                                
 *   Event handler routine.                                            
-*                                                                     
-* Notes                                                               
-*   This sample implementation demonstrates the application           
-*   initialization on a Cortex-M target.                              
-*   If no initialization can be done, Target.Reset() may be called.   
+*    - Sets the PC register to program reset value.                   
+*    - Sets the SP register to program reset value on Cortex-M.       
 *                                                                     
 **********************************************************************
 */                                                                    
-//void AfterTargetDownload (void) {                                   
-//                                                                    
-//  unsigned int SP;                                                  
-//  unsigned int PC;                                                  
-//  unsigned int VectorTableAddr;                                     
-//                                                                    
-//  VectorTableAddr = Elf.GetBaseAddr();                              
-//                                                                    
-//  if (VectorTableAddr != 0xFFFFFFFF) {                              
-//                                                                    
-//    Util.Log("Initializing PC and SP.");                          
-//                                                                    
-//    SP = Target.ReadU32(VectorTableAddr);                           
-//    Target.SetReg("SP", SP);                                      
-//                                                                    
-//    PC = Target.ReadU32(VectorTableAddr + 4);                       
-//    Target.SetReg("PC", PC);                                      
-//  }                                                                 
-//}                                                                   
+void AfterTargetDownload (void) {
+  unsigned int SP;                                                
+  unsigned int PC;                                                
+  unsigned int VectorTableAddr;                                   
+                                                                  
+  VectorTableAddr = Elf.GetBaseAddr();                            
+                                                                  
+  if (VectorTableAddr == 0xFFFFFFFF) {                            
+    Util.Log("Project file error: failed to get program base"); 
+  } else {                                                        
+    SP = Target.ReadU32(VectorTableAddr);                         
+    Target.SetReg("SP", SP);                                    
+                                                                  
+    PC = Target.ReadU32(VectorTableAddr + 4);                     
+    Target.SetReg("PC", PC);                                    
+  }
+}
 
 /*********************************************************************
 *                                                                     
