@@ -11,6 +11,8 @@
 #include "pathMonitor.h"
 #include "buckProg.h"
 #include "MCP4726.h"
+#include "adcDriver.h"
+#include "voltMonitor.h"
 #include "LED.h"
 
 int main(void) {
@@ -25,6 +27,7 @@ int main(void) {
   //Routine init
   pathMonitorInit();
   buckInit();
+  voltMoninit();
 
   while (true) {
 

@@ -17,11 +17,17 @@ static THD_FUNCTION(pathMonitorThd, p) {
 
   (void)p;
 
+  static systime_t now = 0;
+  static systime_t next = 0;
+
   while(true) {
 
-    currentSensorUpdate(&(currentPath.pathA), &aSpiCfg);
-    currentSensorUpdate(&(currentPath.pathB), &bSpiCfg);
-    chThdSleep(US2ST(100));
+    now = chVTGetSystemTime();
+    next = now + US2ST(1000);
+    currentSensorUpdate(&(currentPath.pathA), &aSpiCfg,
+                        &(currentPath.pathB), &bSpiCfg);
+    //currentSensorUpdate(&(currentPath.pathB), &bSpiCfg);
+    chThdSleepUntilWindowed(now, next);
 
   }
 

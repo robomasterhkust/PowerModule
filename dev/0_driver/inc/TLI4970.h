@@ -5,13 +5,12 @@
 #define TLI4970_D025_OFFSET     4096
 #define TLI4970_D025_LSB2MA     12.5f
 
+#define CURRENTSAMPLES          20
+
 typedef struct currentSensor{
 
   SPIDriver* driver;
-  ioportid_t port;
-  uint16_t pad;
   uint16_t error;
-  uint8_t dataReady;
   uint16_t rawData;
   uint16_t rawCurrent;
   int32_t current;      //mA
@@ -29,6 +28,7 @@ typedef struct spiDriver_t{
 } spiDriver_t;
 
 void currentSensorInit(currentSensor* sensor, const SPIConfig* cfg);
-void currentSensorUpdate(currentSensor* sensor, const SPIConfig* cfg);
+void currentSensorUpdate(currentSensor* sensorA, const SPIConfig* cfgA,
+                         currentSensor* sensorB, const SPIConfig* cfgB);
 
 #endif

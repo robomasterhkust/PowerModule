@@ -24,39 +24,59 @@ void currentSensorInit(currentSensor* sensor, const SPIConfig* cfg) {
 
 }
 
-uint16_t rxbuf[1];
+uint16_t currentSensorSample(currentSensor* sensor, const SPIConfig* cfg) {
 
-void currentSensorUpdate(currentSensor* sensor, const SPIConfig* cfg) {
+  static uint16_t data;
 
   spiAcquireBus(sensor->driver);
   spiStart(sensor->driver, cfg);
   spiSelect(sensor->driver);
-  spiReceive(sensor->driver, 1, &sensor->rawData);
+  spiReceive(sensor->driver, 1, &data);
   spiUnselect(sensor->driver);
   spiReleaseBus(sensor->driver);
 
-  if (((sensor->rawData >> 15) & 1) == TLI4970_NORMAL_ID) {
-    uint16_t parity = sensor->rawData & 0x1FFF;
+  if (((data >> 15) & 1) == TLI4970_NORMAL_ID) {
+    uint16_t parity = data & 0x1FFF;
     parity ^= parity >> 8;
     parity ^= parity >> 4;
     parity ^= parity >> 2;
     parity ^= parity >> 1;
     parity = (~parity) & 1;         //get parity bit, equals to 1 if data is even
-    if (((sensor->rawData >> 14) & 1) == parity) {
+    if (((data >> 14) & 1) == parity) {
       sensor->error = 0;
-      sensor->rawCurrent = sensor->rawData & 0x1FFF;
-      sensor->current = (sensor->rawCurrent - TLI4970_D025_OFFSET) * TLI4970_D025_LSB2MA;
+      sensor->rawCurrent = data & 0x1FFF;
     }
   } else {
-    uint16_t parity = sensor->rawData & 0xFFFF;
+    uint16_t parity = data & 0xFFFF;
     parity ^= parity >> 8;
     parity ^= parity >> 4;
     parity ^= parity >> 2;
     parity ^= parity >> 1;
     parity = (~parity) & 1;         //get parity bit, equals to 1 if data is even
-    if (((sensor->rawData >> 14) & 1) == parity) {
-      sensor->error = sensor->rawData;
+    if (((data >> 14) & 1) == parity) {
+      sensor->error = data;
     }
   }
+
+  return sensor->rawCurrent;
+
+}
+//sensor->current = (sensor->rawCurrent - TLI4970_D025_OFFSET) * TLI4970_D025_LSB2MA;
+
+void currentSensorUpdate(currentSensor* sensorA, const SPIConfig* cfgA,
+                         currentSensor* sensorB, const SPIConfig* cfgB) {
+
+  int32_t avgA = 0;
+  int32_t avgB = 0;
+
+  for (uint8_t i = 0; i < CURRENTSAMPLES; i++) {
+
+    avgA += currentSensorSample(sensorA, cfgA);
+    avgB += currentSensorSample(sensorB, cfgB);
+
+  }
+
+  sensorA->current = ((avgA / CURRENTSAMPLES) - TLI4970_D025_OFFSET) * TLI4970_D025_LSB2MA;
+  sensorB->current = ((avgB / CURRENTSAMPLES) - TLI4970_D025_OFFSET) * TLI4970_D025_LSB2MA;
 
 }

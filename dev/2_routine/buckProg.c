@@ -17,11 +17,16 @@ static THD_FUNCTION(buckProgThd, p) {
 
   (void)p;
 
+  static systime_t now = 0;
+  static systime_t next = 0;
+
   while(true) {
 
+    now = chVTGetSystemTime();
+    next = now + US2ST(100);
     dac.dacVal = (uint16_t) dac.mV * MV2DAC;
     dacUpdate(&dac);
-    chThdSleep(US2ST(100));
+    chThdSleepUntilWindowed(now, next);
 
   }
 
