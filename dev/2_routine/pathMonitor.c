@@ -26,7 +26,6 @@ static THD_FUNCTION(pathMonitorThd, p) {
     next = now + US2ST(1000);
     currentSensorUpdate(&(currentPath.pathA), &aSpiCfg,
                         &(currentPath.pathB), &bSpiCfg);
-    //currentSensorUpdate(&(currentPath.pathB), &bSpiCfg);
     chThdSleepUntilWindowed(now, next);
 
   }

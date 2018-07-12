@@ -13,6 +13,8 @@
 #include "MCP4726.h"
 #include "adcDriver.h"
 #include "voltMonitor.h"
+#include "pathControl.h"
+#include "pathSwitch.h"
 #include "LED.h"
 
 int main(void) {
@@ -28,6 +30,7 @@ int main(void) {
   pathMonitorInit();
   buckInit();
   voltMoninit();
+  pathControlInit();
 
   while (true) {
 

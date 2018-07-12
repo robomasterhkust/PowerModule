@@ -8,6 +8,20 @@
 #ifndef PATHSWITCH_H_
 #define PATHSWITCH_H_
 
+#define PATHSWPORT          GPIOB
+#define PATHDIODE           0b000
+#define PATHJUDGE           0b101
+#define PATHBOOST           0b011
 
+typedef enum {
+
+  DIODE = 0,
+  JUDGE = 1,
+  BOOST = 2
+
+} pathType;
+
+void pathSwitchInit(void);
+void pathSwitch(pathType path);
 
 #endif /* 0_DRIVER_INC_PATHSWITCH_H_ */
