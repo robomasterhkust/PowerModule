@@ -33,7 +33,7 @@ typedef struct pathStatus{
 
 }pathStatus;
 
-pathStatus* pathMonitorGet(void);
+pathStatus* pathMonitorData(void);
 void pathMonitorInit(void);
 
 #endif /* 2_ROUTINE_INC_PATHMONITOR_H_ */

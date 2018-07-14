@@ -34,9 +34,6 @@ int main(void) {
 
   while (true) {
 
-    LEDon();
-    chThdSleepMilliseconds(100);
-    LEDoff();
     chThdSleepMilliseconds(100);
 
   }

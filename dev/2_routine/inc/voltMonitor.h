@@ -8,6 +8,7 @@
 #ifndef VOLTMONITOR_H_
 #define VOLTMONITOR_H_
 
+voltages* voltMonData(void);
 void voltMoninit(void);
 
 #endif /* 2_ROUTINE_INC_VOLTMONITOR_H_ */

@@ -30,6 +30,12 @@ static THD_FUNCTION(voltMonThd, p) {
 
 }
 
+voltages* voltMonData(void) {
+
+	return &voltData;
+
+}
+
 void voltMoninit(void) {
 
   adcDriverInit();

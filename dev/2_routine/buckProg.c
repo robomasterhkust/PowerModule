@@ -32,6 +32,12 @@ static THD_FUNCTION(buckProgThd, p) {
 
 }
 
+dac_t* buckData(void) {
+
+	return &dac;
+
+}
+
 void buckInit(void) {
 
   dacInit(&dac);

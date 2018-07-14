@@ -12,16 +12,18 @@
 static adcsample_t sample [ADCDEPTH] [ADCNUMCH];
 static adcsample_t avg    [ADCNUMCH];
 
-//void * memset ( void * ptr, int value, size_t num );
 
+/*
+ * Regular in, out, cap and temperature voltage sensing
+ */
 static const ADCConversionGroup adcCfg = {
 
-  FALSE,                 //Continuous conversion
-  ADCNUMCH,              //Number of ADC channels
-  NULL,                  //end of conversion callback
-  NULL,                  //ADC error callback
-  0,                     //CR1
-  ADC_CR2_TSVREFE,       //CR2
+  TRUE,	                 										//Continuous conversion
+  ADCNUMCH,              										//Number of ADC channels
+  NULL,                  										//end of conversion callback
+	NULL,						      										//ADC error callback
+	0,						           									//CR1
+  ADC_CR2_TSVREFE,       										//CR2
   ADC_SMPR1_SMP_SENSOR(ADC_SAMPLE_55P5),    //Sample time setting 1
   ADC_SMPR2_SMP_AN0(ADC_SAMPLE_55P5) |
   ADC_SMPR2_SMP_AN1(ADC_SAMPLE_55P5) |
@@ -43,11 +45,15 @@ void adcDriverInit(void) {
 
   adcStart(&ADCD1, NULL);
 
+  adcStartConversion(&ADCD1, &adcCfg, (adcsample_t*) &sample, ADCDEPTH);
+
 }
+
+void * memset (void *block, int c, size_t size);
 
 void adcDriverUpdate(voltages* data) {
 
-  adcConvert(&ADCD1, &adcCfg, &sample, ADCDEPTH);
+  //adcConvert(&ADCD1, &adcCfg, (adcsample*) &sample, ADCDEPTH);
 
   memset(avg, 0, sizeof(avg));
 

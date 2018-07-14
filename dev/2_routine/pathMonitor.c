@@ -32,6 +32,12 @@ static THD_FUNCTION(pathMonitorThd, p) {
 
 }
 
+pathStatus* pathMonitorData(void) {
+
+	return &currentPath;
+
+}
+
 void pathMonitorInit(void) {
 
   currentSensorInit(&(currentPath.pathA), &aSpiCfg);
