@@ -17,13 +17,29 @@
 #include "pathSwitch.h"
 #include "LED.h"
 
-pathType path[1];
-dac_t* buckProg;
-pathStatus* current;
-voltages* voltage;
+pathData_t pathData;
 
-#define riseThd				500	//mA
-#define fallThd				350	//mA
+static THD_WORKING_AREA(pathCalcThd_wa, 1024);
+static THD_FUNCTION(pathCalcThd, p) {
+
+  (void)p;
+
+  static systime_t now = 0;
+  static systime_t next = 0;
+
+  while(true) {
+
+    now = chVTGetSystemTime();
+    next = now + US2ST(100);
+
+    pathData.judgePower = -pathData.current->pathA.current * pathData.voltage->vinMv / 1000000;
+    pathData.outPower = pathData.voltage->ioutMa * pathData.voltage->voutMv / 1000000;
+
+    chThdSleepUntilWindowed(now, next);
+
+  }
+
+}
 
 static THD_WORKING_AREA(pathSwitchThd_wa, 1024);
 static THD_FUNCTION(pathSwitchThd, p) {
@@ -33,22 +49,40 @@ static THD_FUNCTION(pathSwitchThd, p) {
   static systime_t now = 0;
   static systime_t next = 0;
 
-  buckProg = buckData();
-  current = pathMonitorData();
-  voltage = voltMonData();
+  pathData.riseThresh = 75;
+  pathData.fallThresh = 55;
+  pathData.deadTime = 200;
+
+  pathData.buckProg = buckData();
+  pathData.current = pathMonitorData();
+  pathData.voltage = voltMonData();
+
+  chThdCreateStatic(pathCalcThd_wa, sizeof(pathCalcThd_wa),
+                    NORMALPRIO + 13, pathCalcThd, NULL);
 
   while(true) {
 
     now = chVTGetSystemTime();
     next = now + US2ST(100);
 
-    if((path[0] == JUDGE) && (current->pathA.current > riseThd)) {
-    	path[0] = BOOST;
-    } else if ((path[0] == BOOST) && (current->pathA.current < fallThd)) {
-    	path[0] = JUDGE;
-    }
+//    pathData.judgePower = -pathData.current->pathA.current * pathData.voltage->vinMv / 1000000;
+//    pathData.outPower = pathData.voltage->ioutMa * pathData.voltage->voutMv / 1000000;
 
-    pathSwitch(path[0]);
+    if(true) {
+      if((pathData.path == JUDGE) && (pathData.judgePower > pathData.riseThresh)) {
+        pathData.path = BOOST;
+        //pathSwitch(pathData.path);
+        pal_lld_writegroup(GPIOB, 0b111, 12, PATHBOOST);
+        //pathData.lockTill = now + pathData.deadTime;
+        next += MS2ST(pathData.deadTime);
+      } else if ((pathData.path == BOOST) && (pathData.outPower < pathData.fallThresh)) {
+        pathData.path = JUDGE;
+        //pathSwitch(pathData.path);
+        pal_lld_writegroup(GPIOB, 0b111, 12, PATHJUDGE);
+        //pathData.lockTill = now + pathData.deadTime;
+        next += MS2ST(pathData.deadTime);
+      }
+    }
 
     chThdSleepUntilWindowed(now, next);
 
@@ -58,7 +92,7 @@ static THD_FUNCTION(pathSwitchThd, p) {
 
 void pathControlInit(void) {
 
-  path[0] = DIODE;
+  pathData.path = JUDGE;
 
   pathSwitchInit();
 

@@ -27,9 +27,11 @@ static const ADCConversionGroup adcCfg = {
   ADC_SMPR1_SMP_SENSOR(ADC_SAMPLE_55P5),    //Sample time setting 1
   ADC_SMPR2_SMP_AN0(ADC_SAMPLE_55P5) |
   ADC_SMPR2_SMP_AN1(ADC_SAMPLE_55P5) |
+  ADC_SMPR2_SMP_AN3(ADC_SAMPLE_239P5) |
   ADC_SMPR2_SMP_AN4(ADC_SAMPLE_55P5),       //Sample time setting 2
   ADC_SQR1_NUM_CH(ADCNUMCH),                //Sequence setting 1
   0,                                        //Sequence setting 2
+  ADC_SQR3_SQ5_N(ADC_CHANNEL_IN3)   |
   ADC_SQR3_SQ4_N(ADC_CHANNEL_SENSOR)|
   ADC_SQR3_SQ3_N(ADC_CHANNEL_IN4)   |
   ADC_SQR3_SQ2_N(ADC_CHANNEL_IN1)   |
@@ -41,6 +43,7 @@ void adcDriverInit(void) {
 
   palSetPadMode(GPIOA, 0, PAL_MODE_INPUT_ANALOG);
   palSetPadMode(GPIOA, 1, PAL_MODE_INPUT_ANALOG);
+  palSetPadMode(GPIOA, 3, PAL_MODE_INPUT_ANALOG);
   palSetPadMode(GPIOA, 4, PAL_MODE_INPUT_ANALOG);
 
   adcStart(&ADCD1, NULL);
@@ -70,6 +73,7 @@ void adcDriverUpdate(voltages* data) {
   data->tempC = (uint16_t) (TEMPOFFSET - avg[3] * TEMPSCALE);
   data->vinMv = (uint16_t) (avg[2] * ADC2MV);
   data->vcapMv = (uint16_t) (avg[1] * ADC2MV);
-  data->voutMV = (uint16_t) (avg[0] * ADC2MV);
+  data->voutMv = (uint16_t) (avg[0] * ADC2MV);
+  data->ioutMa = (int32_t) (avg[4] * ADC2MA);
 
 }

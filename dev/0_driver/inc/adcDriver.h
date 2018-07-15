@@ -8,7 +8,7 @@
 #ifndef ADCDRIVER_H_
 #define ADCDRIVER_H_
 
-#define ADCNUMCH            4
+#define ADCNUMCH            5
 #define ADCDEPTH            10
 
 #define TEMPSCALE           0.187363735f
@@ -16,12 +16,16 @@
 
 #define ADC2MV              8.862304688f
 
+#define ADC2MA              16.11328125f
+#define MAOFFSET            12500
+
 typedef struct voltages{
 
   uint16_t tempC;
   uint16_t vinMv;
   uint16_t vcapMv;
-  uint16_t voutMV;
+  uint16_t voutMv;
+  int32_t ioutMa;
 
 } voltages;
 
