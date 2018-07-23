@@ -18,15 +18,15 @@ Mode 2 (BOOST) : The super capacitor is connected to the powerModule output thro
 
 Send a 2-byte CAN packet to the powerModule with ID 0x055, data definition as follows:
 
-        byte 0, uint8_t : pathType, 1 = judge power, 2 = cap power
-        byte 1, uint8_t : robotType, 1 = 80W limit, 2 = 120W limit
+        byte 0, uint8_t : pathType (1 = judge power, 2 = cap power)
+        byte 1, uint8_t : robotType (1 = 80W limit, 2 = 120W limit)
 
 ## powerModule feedback
 
 The powerModule sends a 8-byte CAN packet to the chassis conroller at 1000Hz, data definition as follows:
 
         byte 0, uint8_t : Battery Voltege, in volts
-        byte 1, uint8_t : pathType, 1 = judge power, 2 = cap power
+        byte 1, uint8_t : pathType (1 = judge power, 2 = cap power)
         byte 2-3 int16_t : capacitor energy available, in joules
         byte 4-5 uint16_t : power draw from judgement system, in watts
         byte 6-7 uint16_t : power draw of chassis, in watts
