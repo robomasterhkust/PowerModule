@@ -6,7 +6,7 @@ Uses ChibiOS for HAL and RTOS.
 
 The controller is a STM32F103C6T8 on custom PCB. Read Power Module V1.pdf for schematics and layout snapshot.
 
-##The powerModule feature 3 operation modes:
+## The powerModule feature 3 operation modes:
 
 Mode 0 (DIODE) : Whichever path with high voltage is connected to the powerModule output, reserved for emergency only.
 
@@ -14,7 +14,7 @@ Mode 1 (JUDGE) : The judgement system chassis power output is connected to the p
 
 Mode 2 (BOOST) : The super capacitor is connected to the powerModule output through a boost regulator. The chassis should not draw more than 1.2kW. The judgement system power output is connected to the super capacitor charger and charged at the power limit.
 
-##powerModule control
+## powerModule control
 
 Send a 2-byte CAN packet to the powerModule with ID 0x055, data definition as follows:
     byte 0, uint8_t : pathType, 1 = judge power, 2 = cap power
