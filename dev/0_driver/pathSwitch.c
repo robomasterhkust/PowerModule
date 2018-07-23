@@ -18,7 +18,9 @@ void pathSwitchInit(void) {
 
 }
 
-void pathSwitch(pathType path){
+void pathSwitch(pathEnum path){
+
+	chSysLock();
 
   switch(path) {
 
@@ -35,5 +37,7 @@ void pathSwitch(pathType path){
     break;
 
   }
+
+  chSysUnlock();
 
 }

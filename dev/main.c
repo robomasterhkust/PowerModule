@@ -16,6 +16,8 @@
 #include "pathControl.h"
 #include "pathSwitch.h"
 #include "LED.h"
+#include "bxCAN.h"
+#include "canFeedback.h"
 
 int main(void) {
 
@@ -24,6 +26,7 @@ int main(void) {
   chSysInit();
 
   //Driver init
+  can_processInit();
   LEDinit();
 
   //Routine init
@@ -31,6 +34,7 @@ int main(void) {
   buckInit();
   voltMoninit();
   pathControlInit();
+  canFeedbackInit();
 
   while (true) {
 

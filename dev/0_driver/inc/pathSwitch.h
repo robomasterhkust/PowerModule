@@ -19,9 +19,9 @@ typedef enum {
   JUDGE = 1,
   BOOST = 2
 
-} pathType;
+} pathEnum;
 
 void pathSwitchInit(void);
-void pathSwitch(pathType path);
+void pathSwitch(pathEnum path);
 
 #endif /* 0_DRIVER_INC_PATHSWITCH_H_ */
