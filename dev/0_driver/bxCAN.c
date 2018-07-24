@@ -14,9 +14,9 @@ userCommand_t commandInput;
 canFeedback_t feedBack;
 
 static const CANConfig cancfg = {
-	CAN_MCR_ABOM | CAN_MCR_AWUM | CAN_MCR_TXFP,
-  CAN_BTR_SJW(0) | CAN_BTR_TS2(3) |
-  CAN_BTR_TS1(8) | CAN_BTR_BRP(12)
+  CAN_MCR_ABOM | CAN_MCR_AWUM | CAN_MCR_TXFP,
+  CAN_BTR_SJW(0) | CAN_BTR_TS2(1) |
+  CAN_BTR_TS1(8) | CAN_BTR_BRP(2)
 };
 
 #define CAN_FILTER_NUM 28U
@@ -91,7 +91,7 @@ void can_processInit(void)
     canfilter[i].register2 = 0;
   }
 
-  canSTM32SetFilters(14, CAN_FILTER_NUM, canfilter);
+  //canSTM32SetFilters(14, CAN_FILTER_NUM, canfilter);
 
   canStart(&CAND1, &cancfg);
 

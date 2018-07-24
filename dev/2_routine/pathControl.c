@@ -17,6 +17,7 @@
 #include "pathSwitch.h"
 #include "LED.h"
 #include "bxCAN.h"
+#include <math.h>
 
 pathData_t pathData;
 pidData_t buckPid;
@@ -38,9 +39,9 @@ static THD_FUNCTION(pidCalcThd, p) {
   static systime_t now = 0;
   static systime_t next = 0;
 
-  buckPid.kP = 1;
-  buckPid.kI = 0.2;
-  buckPid.kD = 0;
+  buckPid.kP = 1.0;
+  buckPid.kI = 0.066;
+  buckPid.kD = 0.025;
   buckPid.last_error = 0;
   buckPid.maxTarget = pathData.riseThresh - pathData.chargeMargin;
   buckPid.maxOut = 500;
@@ -49,7 +50,7 @@ static THD_FUNCTION(pidCalcThd, p) {
   while(true) {
 
     now = chVTGetSystemTime();
-    next = now + US2ST(1000);
+    next = now + US2ST(100);
 
     buckPid.fb = pathData.buckPower;
     buckPid.error = buckPid.target - pathData.buckPower;
@@ -90,7 +91,10 @@ static THD_FUNCTION(pathCalcThd, p) {
     pathData.buckPower = -pathData.current->pathB.current * pathData.voltage->vinMv / 1000000;
 
     pathData.capEnergy = pathData.capacitance / 2 *
-    										 (((pathData.voltage->vcapMv / 1000)^2) - ((pathData.VcapMin / 1000)^2));
+    										 ((pow((pathData.voltage->vcapMv), 2) / 1000000) - (pow((pathData.VcapMin), 2) / 1000000));
+
+    pathData.riseThresh = userCommand->robotType == 1 ? 75 : 110;
+    //pathData.riseThresh = userCommand->robotType == 2 ? 75 : 110;
 
     target = pathData.path == JUDGE ?
     				 pathData.riseThresh - pathData.chargeMargin - pathData.outPower :		//Judge Power
@@ -108,6 +112,33 @@ static THD_FUNCTION(pathCalcThd, p) {
 
 }
 
+static THD_WORKING_AREA(pathRampThd_wa, 128);
+static THD_FUNCTION(pathRampThd, p) {
+
+  (void)p;
+
+  static systime_t now = 0;
+  static systime_t next = 0;
+
+  while(!chThdShouldTerminateX()) {
+
+  	for(uint16_t i = RISETHRESH; i >= MARGINFINAL ; i--) {
+
+      now = chVTGetSystemTime();
+      next = now + MS2ST(RAMPTIME / (RISETHRESH - MARGINFINAL));
+
+      pathData.chargeMargin = i;
+
+      chThdSleepUntilWindowed(now, next);
+
+  	}
+
+  	chThdExit(MSG_OK);
+
+  }
+
+}
+
 static THD_WORKING_AREA(pathSwitchThd_wa, 1024);
 static THD_FUNCTION(pathSwitchThd, p) {
 
@@ -119,9 +150,10 @@ static THD_FUNCTION(pathSwitchThd, p) {
   pathData.riseThresh = 75;
   pathData.fallThresh = 55;
   pathData.deadTime = 200;
-  pathData.chargeMargin = 5;
+  pathData.chargeMargin = 75;				//10
   pathData.capacitance = 11.1;
-  pathData.VcapMin = 14000;
+  pathData.VcapMin = 18000;
+  pathData.sysInit = 0;
 
   pathData.buckProg = buckData();
   pathData.current = pathMonitorData();
@@ -132,6 +164,9 @@ static THD_FUNCTION(pathSwitchThd, p) {
 
   chThdCreateStatic(pidCalcThd_wa, sizeof(pidCalcThd_wa),
   									NORMALPRIO + 11, pidCalcThd, NULL);
+
+  chThdCreateStatic(pathRampThd_wa, sizeof(pathRampThd_wa),
+  									NORMALPRIO + 15, pathRampThd, NULL);
 
   while(true) {
 

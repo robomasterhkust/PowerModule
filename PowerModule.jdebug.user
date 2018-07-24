@@ -1,18 +1,16 @@
-OpenWindow="Global Data", DockArea=RIGHT, x=0, y=0, w=616, h=225, FilterBarShown=1, 
-OpenWindow="Registers", DockArea=RIGHT, x=0, y=0, w=616, h=225, FilterBarShown=0, 
-OpenWindow="Console", DockArea=BOTTOM, x=1, y=0, w=959, h=369, FilterBarShown=0, 
-OpenWindow="Watched Data", DockArea=RIGHT, x=0, y=1, w=616, h=339, FilterBarShown=0, 
-OpenWindow="Breakpoints", DockArea=LEFT, x=0, y=0, w=402, h=180, FilterBarShown=0, 
-OpenWindow="Functions", DockArea=LEFT, x=0, y=2, w=402, h=217, FilterBarShown=1, 
-OpenWindow="Source Files", DockArea=LEFT, x=0, y=1, w=402, h=182, FilterBarShown=1, 
-OpenWindow="Data Graph", DockArea=BOTTOM, x=0, y=0, w=960, h=369, FilterBarShown=0, 
-OpenWindow="Disassembly", DockArea=RIGHT, x=0, y=0, w=616, h=225, FilterBarShown=0, ExecCountersShown=0
+OpenWindow="Disassembly", DockArea=RIGHT, x=0, y=0, w=361, h=274, FilterBarShown=0, ExecCountersShown=0
+OpenWindow="Global Data", DockArea=RIGHT, x=0, y=0, w=361, h=274, FilterBarShown=1, 
+OpenWindow="Console", DockArea=BOTTOM, x=1, y=0, w=690, h=284, FilterBarShown=0, 
+OpenWindow="Watched Data", DockArea=RIGHT, x=0, y=1, w=361, h=375, FilterBarShown=0, 
+OpenWindow="Breakpoints", DockArea=LEFT, x=0, y=0, w=374, h=222, FilterBarShown=0, 
+OpenWindow="Functions", DockArea=LEFT, x=0, y=2, w=374, h=222, FilterBarShown=1, 
+OpenWindow="Source Files", DockArea=LEFT, x=0, y=1, w=374, h=220, FilterBarShown=1, 
+OpenWindow="Data Graph", DockArea=BOTTOM, x=0, y=0, w=1229, h=284, FilterBarShown=0, 
 OpenToolbar="Debug", Floating=0, x=0, y=0
 TableHeader="Global Data", SortCol="Name", SortOrder="ASCENDING", VisibleCols=["Name";"Value";"Location";"Size";"Type"], ColWidths=[148;84;84;49;245]
-TableHeader="Registers", SortCol="Name", SortOrder="ASCENDING", VisibleCols=["Name";"Value";"Description"], ColWidths=[157;155;593]
-TableHeader="Watched Data", SortCol="Expression", SortOrder="ASCENDING", VisibleCols=["Expression";"Value";"Location";"Size";"Refresh";"Type"], ColWidths=[114;84;84;44;63;210]
-TableHeader="Breakpoints", SortCol="State", SortOrder="ASCENDING", VisibleCols=["State";"Location";"Permitted Impl.";"Actual Impl.";"Context";"Task Filter";"Skip #";"Condition"], ColWidths=[73;144;149;125;290;109;85;106]
+TableHeader="Watched Data", SortCol="Expression", SortOrder="ASCENDING", VisibleCols=["Expression";"Value";"Location";"Size";"Refresh";"Type"], ColWidths=[114;91;98;44;63;147]
+TableHeader="Breakpoints", SortCol="State", SortOrder="ASCENDING", VisibleCols=["State";"Location";"Permitted Impl.";"Actual Impl.";"Context";"Task Filter";"Skip #";"Condition"], ColWidths=[73;144;149;125;390;109;85;70]
 TableHeader="Functions", SortCol="Name", SortOrder="ASCENDING", VisibleCols=["Name";"Address";"Size";"#Insts";"Source"], ColWidths=[145;101;66;84;109]
 TableHeader="Source Files", SortCol="File", SortOrder="ASCENDING", VisibleCols=["File";"Status";"Size";"#Insts";"Path"], ColWidths=[150;86;66;84;613]
 TableHeader="Data Graph Samples", SortCol="Index", SortOrder="ASCENDING", VisibleCols=["Index";"Time"], ColWidths=[10;630]
-TableHeader="Data Graph Setup", SortCol="Expression", SortOrder="DESCENDING", VisibleCols=["Expression";"Type";"Value";"Min";"Max";"Average";"# Changes";"Min. Change";"Max. Change"], ColWidths=[128;48;56;41;56;84;78;85;384]
+TableHeader="Data Graph Setup", SortCol="Expression", SortOrder="DESCENDING", VisibleCols=["Expression";"Type";"Value";"Min";"Max";"Average";"# Changes";"Min. Change";"Max. Change"], ColWidths=[152;147;50;41;45;70;78;85;89]

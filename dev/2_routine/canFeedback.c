@@ -36,11 +36,11 @@ static THD_FUNCTION(canFeedbackThd, p) {
 
     chSysLock();
 
-    feedbackData.Pchassis = pathData->outPower;
-    feedbackData.Pjudge = pathData->judgePower;
+    feedbackData.Pchassis = (uint16_t) pathData->outPower;
+    feedbackData.Pjudge = (uint16_t) pathData->judgePower;
     feedbackData.Vin = (uint8_t)pathData->voltage->vinMv / 1000;
-    feedbackData.capEnergy = pathData->capEnergy;
-    feedbackData.pathType = pathData->path;
+    feedbackData.capEnergy = (int16_t) pathData->capEnergy;
+    feedbackData.pathType = (uint8_t) pathData->path;
 
     memcpy(txmsg.data8, &feedbackData, sizeof(feedbackData));
 

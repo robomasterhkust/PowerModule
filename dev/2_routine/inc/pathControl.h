@@ -20,7 +20,11 @@
 #include "pathSwitch.h"
 #include "LED.h"
 
-#define TIMEOUTCNT		150		// 1 count = 100us
+#define TIMEOUTCNT		150			// 1 count = 100us
+
+#define MARGINFINAL		10
+#define RISETHRESH		75
+#define RAMPTIME			20000		//ms
 
 typedef struct pathData_t{
 
@@ -39,6 +43,7 @@ typedef struct pathData_t{
   int16_t capEnergy;
   int16_t capacitance;
   uint16_t VcapMin;
+  uint8_t sysInit;
 
 }pathData_t;
 
