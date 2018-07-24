@@ -8,6 +8,7 @@
 #include "ch.h"
 #include "hal.h"
 #include "pathSwitch.h"
+#include "LED.h"
 
 void pathSwitchInit(void) {
 
@@ -30,10 +31,12 @@ void pathSwitch(pathEnum path){
 
   case JUDGE :
     pal_lld_writegroup(GPIOB, 0b111, 12, PATHJUDGE);
+    LEDoff();
     break;
 
   case BOOST :
     pal_lld_writegroup(GPIOB, 0b111, 12, PATHBOOST);
+    LEDon();
     break;
 
   }
