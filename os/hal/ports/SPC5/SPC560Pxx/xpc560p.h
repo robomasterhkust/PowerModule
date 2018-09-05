@@ -5,7 +5,7 @@
  * DESCRIPTION : This is the header file describing the register
  *               set for the named projects. 
  * 
- * COPYRIGHT   :(c) 2012, Freescale
+ * COPYRIGHT   :(c) 2012, 2018, Freescale
  * 
  * VERSION	   : 01.10
  * DATE	   : 12.06.2012  

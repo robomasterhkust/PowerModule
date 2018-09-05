@@ -5,7 +5,7 @@
  * DESCRIPTION : This is the header file describing the register
  *               set for the MPC564xB/C family of devices
  *
- * COPYRIGHT   :(c) 2011, Freescale & STMicroelectronics 
+ * COPYRIGHT   :(c) 2011, 2018, Freescale & STMicroelectronics 
  * 
  * VERSION     : 1.0 (Based on RM Rev2 RC)
  * DATE        : April 2011 

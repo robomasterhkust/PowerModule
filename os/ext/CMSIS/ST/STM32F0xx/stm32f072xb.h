@@ -3,7 +3,7 @@
   * @file    stm32f072xb.h
   * @author  MCD Application Team
   * @version V2.2.2
-  * @date    26-June-2015
+  * @date    26-June-2015, 2018
   * @brief   CMSIS STM32F072x8/STM32F072xB devices Peripheral Access Layer Header File.
   *
   *          This file contains:

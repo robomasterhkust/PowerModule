@@ -3,7 +3,7 @@
   * @file    stm32f3xx.h
   * @author  MCD Application Team
   * @version V2.2.0
-  * @date    13-November-2015
+  * @date    13-November-2015, 2018
   * @brief   CMSIS STM32F3xx Device Peripheral Access Layer Header File.           
   *            
   *          The file is the unique include file that the application programmer

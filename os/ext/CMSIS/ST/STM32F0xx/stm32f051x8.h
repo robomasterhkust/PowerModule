@@ -3,7 +3,7 @@
   * @file    stm32f051x8.h
   * @author  MCD Application Team
   * @version V2.2.2
-  * @date    26-June-2015
+  * @date    26-June-2015, 2018
   * @brief   CMSIS STM32F051x4/STM32F051x6/STM32F051x8 devices Peripheral Access 
   *          Layer Header File.
   *

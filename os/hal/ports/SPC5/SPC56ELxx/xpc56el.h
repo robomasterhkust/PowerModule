@@ -5,7 +5,7 @@
  * DESCRIPTION : This is the header file describing the register
  *               set for the named projects. 
  * 
- * COPYRIGHT   : (c) 2009, Freescale Semiconductor & ST Microelectronics 
+ * COPYRIGHT   : (c) 2009, 2018, Freescale Semiconductor & ST Microelectronics 
  * 
  * VERSION     : 1.01
  * DATE        : Thu Oct  8 13:53:51 CEST 2009

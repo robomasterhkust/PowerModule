@@ -6,7 +6,7 @@
  * DESCRIPTION : This is the header file describing the register
  *               set for MPC5607B
  * 
- * COPYRIGHT   :(c) 2008, Freescale & STMicroelectronics 
+ * COPYRIGHT   :(c) 2008, 2018, Freescale & STMicroelectronics 
  * 
  * VERSION     : 01.03 
  * DATE        : 1.20.2010 

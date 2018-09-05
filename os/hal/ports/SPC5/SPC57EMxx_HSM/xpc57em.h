@@ -1,5 +1,5 @@
 /**************************************************************************
- * FILE NAME: MPC5746M.h                     COPYRIGHT (c) Freescale 2014 *
+ * FILE NAME: MPC5746M.h                     COPYRIGHT (c) Freescale 2014, 2018 *
  * REVISION:  2.10                                     All Rights Reserved *
  *                                                                        *
  * DESCRIPTION:                                                           *

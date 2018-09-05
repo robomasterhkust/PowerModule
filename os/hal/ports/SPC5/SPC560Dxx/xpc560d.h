@@ -9,7 +9,7 @@
  *				- MPC5602D
  * 
  *
- * COPYRIGHT   :(c) 2012, Freescale
+ * COPYRIGHT   :(c) 2012, 2018, Freescale
  * 
  * VERSION     : 2.03
  * DATE        : 06.05.2012 

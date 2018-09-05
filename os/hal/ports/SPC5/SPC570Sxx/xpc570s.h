@@ -1,5 +1,5 @@
 /**************************************************************************
- * FILE NAME: spc570s50l.h         COPYRIGHT (c) ST Microelectronics 2012 * 
+ * FILE NAME: spc570s50l.h         COPYRIGHT (c) ST Microelectronics 2012, 2018 * 
  * REVISION:  0.1A                                    All Rights Reserved *
  *                                                                        *
  * DESCRIPTION:                                                           *

@@ -3,7 +3,7 @@
   * @file    stm32f102xb.h
   * @author  MCD Application Team
   * @version V4.0.1
-  * @date    31-July-2015
+  * @date    31-July-2015, 2018
   * @brief   CMSIS Cortex-M3 Device Peripheral Access Layer Header File. 
   *          This file contains all the peripheral register's definitions, bits 
   *          definitions and memory mapping for STM32F1xx devices.            

@@ -7,7 +7,7 @@
  *	             MPC5604B, mask set = 0M27V
  *               SPC560B4, mask set = FB50X20B
  * 
- * COPYRIGHT   :(c) 2009, Freescale & STMicroelectronics 
+ * COPYRIGHT   :(c) 2009, 2018, Freescale & STMicroelectronics 
  * 
  * VERSION     : 01.02 
  * DATE        : 08 MAY 2009 

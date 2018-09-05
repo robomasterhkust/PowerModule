@@ -1,5 +1,5 @@
 /******************************************************************************
- * FILE NAME: spc58ne_hsmhost_if.h	    COPYRIGHT (c) STMicroelectronics 2015 *
+ * FILE NAME: spc58ne_hsmhost_if.h	    COPYRIGHT (c) STMicroelectronics 2015, 2018 *
  * REVISION:  0.4		                                 All Rights Reserved  *
  *																		      *
  * DESCRIPTION:                                                               *

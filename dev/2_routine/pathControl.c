@@ -1,3 +1,17 @@
+/*******************************************************************************
+ *    This program is free software: you can redistribute it and/or modify
+ *     it under the terms of the GNU General Public License as published by
+ *     the Free Software Foundation, either version 3 of the License, or
+ *     (at your option) any later version.
+ *
+ *     This program is distributed in the hope that it will be useful,
+ *     but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *     GNU General Public License for more details.
+ *
+ *     You should have received a copy of the GNU General Public License
+ *     along with this program.  If not, see <https://www.gnu.org/licenses/>.
+ *******************************************************************************/
 /*
  * pathControl.c
  *
@@ -31,6 +45,10 @@ pathData_t* returnPathData(void) {
 
 }
 
+/*
+ * PID is not the most scientific method of control for this system
+ * Try feedforward with feedback trim instead
+ */
 static THD_WORKING_AREA(pidCalcThd_wa, 1024);
 static THD_FUNCTION(pidCalcThd, p) {
 
@@ -59,7 +77,8 @@ static THD_FUNCTION(pidCalcThd, p) {
     buckPid.i = buckPid.accumError * buckPid.kI;
     buckPid.out = buckPid.p + buckPid.i + buckPid.d;
     buckPid.out = buckPid.out > buckPid.maxOut ? buckPid.maxOut : buckPid.out;
-    buckPid.accumError += buckPid.out == buckPid.maxOut ? 0 : buckPid.error * buckPid.kI;
+    buckPid.accumError += buckPid.out == buckPid.maxOut ? 0 :
+    buckPid.error * buckPid.kI;																	//anti integral windup
     buckPid.accumError = pathData.voltage->vcapMv > buckPid.maxMilliVolt ? 0 : buckPid.accumError;
     buckPid.out = buckPid.out < 0 ? 0 : buckPid.out;
     pathData.buckProg->mV = buckPid.out;
@@ -94,7 +113,7 @@ static THD_FUNCTION(pathCalcThd, p) {
     										 ((pow((pathData.voltage->vcapMv), 2) / 1000000) - (pow((pathData.VcapMin), 2) / 1000000));
 
     pathData.riseThresh = userCommand->robotType == 1 ? 75 : 110;
-    //pathData.riseThresh = userCommand->robotType == 2 ? 75 : 110;
+
 
     target = pathData.path == JUDGE ?
     				 pathData.riseThresh - pathData.chargeMargin - pathData.outPower :		//Judge Power
@@ -112,6 +131,10 @@ static THD_FUNCTION(pathCalcThd, p) {
 
 }
 
+/*
+ * Charging at full power on startup triggers judgment system
+ * short circuit protection, ramp up charging power
+ */
 static THD_WORKING_AREA(pathRampThd_wa, 128);
 static THD_FUNCTION(pathRampThd, p) {
 
@@ -193,15 +216,15 @@ static THD_FUNCTION(pathSwitchThd, p) {
 
     timeoutCount += 1 - userCommand->msgUpdated;
 
-    if (userCommand->msgUpdated) {
+    if (userCommand->msgUpdated) {											//Switch path according to chassis command
     	pathData.path = userCommand->pathType;
 			userCommand->msgUpdated = 0;
 			timeoutCount = 0;
-    } else if (timeoutCount > TIMEOUTCNT) {
+    } else if (timeoutCount > TIMEOUTCNT) {							//Timeout, switch to judge power
     	pathData.path = JUDGE;
     }
 
-    if (pathData.voltage->vcapMv < pathData.VcapMin) {
+    if (pathData.voltage->vcapMv < pathData.VcapMin) {	//SuperCap voltage low, switch to judge power
     	pathData.path = JUDGE;
     }
 

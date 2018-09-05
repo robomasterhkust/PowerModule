@@ -3,7 +3,7 @@
   * @file    stm32f215xx.h
   * @author  MCD Application Team
   * @version V2.1.0
-  * @date    09-October-2015
+  * @date    09-October-2015, 2018
   * @brief   CMSIS STM32F215xx Device Peripheral Access Layer Header File. 
   *          This file contains :  
   *           - Data structures and the address mapping for all peripherals

@@ -1,5 +1,5 @@
 /******************************************************************************
- * FILE NAME: HSM_registers.h			COPYRIGHT (c) STMicroelectronics 2013 * 
+ * FILE NAME: HSM_registers.h			COPYRIGHT (c) STMicroelectronics 2013, 2018 * 
  * REVISION:  0.1		                                  All Rights Reserved *
  *																			  *
  * DESCRIPTION:                                                               *

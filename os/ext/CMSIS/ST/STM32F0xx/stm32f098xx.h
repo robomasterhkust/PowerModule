@@ -3,7 +3,7 @@
   * @file    stm32f098xx.h
   * @author  MCD Application Team
   * @version V2.2.2
-  * @date    26-June-2015
+  * @date    26-June-2015, 2018
   * @brief   CMSIS STM32F098xx devices Peripheral Access Layer Header File.
   *
   *          This file contains:

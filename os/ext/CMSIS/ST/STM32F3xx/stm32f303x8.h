@@ -3,7 +3,7 @@
   * @file    stm32f303x8.h
   * @author  MCD Application Team
   * @version V2.2.0
-  * @date    13-November-2015
+  * @date    13-November-2015, 2018
   * @brief   CMSIS STM32F303x8 Devices Peripheral Access Layer Header File.
   *
   *          This file contains:

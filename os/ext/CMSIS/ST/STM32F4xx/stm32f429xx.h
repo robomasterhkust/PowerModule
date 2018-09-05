@@ -3,7 +3,7 @@
   * @file    stm32f429xx.h
   * @author  MCD Application Team
   * @version V2.4.2
-  * @date    13-November-2015
+  * @date    13-November-2015, 2018
   * @brief   CMSIS STM32F429xx Device Peripheral Access Layer Header File.
   *
   *          This file contains:

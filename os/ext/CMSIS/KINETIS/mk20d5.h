@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2014 Fabio Utzig, http://fabioutzig.com
+ * Copyright (C) 2014, 2018 Fabio Utzig, http://fabioutzig.com
  *
  * Permission is hereby granted, free of charge, to any person obtaining
  * a copy of this software and associated documentation files (the "Software"),
